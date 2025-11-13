@@ -5,6 +5,12 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 
+import fileCreatorsErfani.ConcereteCsvReaderCreatorErfani;
+import fileCreatorsErfani.ConcereteTextReaderCreatorErfani;
+import fileCreatorsErfani.ConcreteCsvReaderProductErfani;
+import fileCreatorsErfani.ReaderCreatorErfani;
+import fileCreatorsErfani.ReaderProductErfani;
+
 
 public class GetrankeModel {
 	 private Getraenk getraenk;
@@ -18,15 +24,30 @@ public class GetrankeModel {
 	}
 	
 	 public void leseAusDatei(String typ)throws Exception{
+		 if(typ.equals("csv")) {
+		 ReaderCreatorErfani creator = new ConcereteCsvReaderCreatorErfani();
+		 ReaderProductErfani reader = creator.factoryMethod();
 	    	
-	      			BufferedReader ein = new BufferedReader(new FileReader("Getraenk.csv"));
-	      			String[] zeile = ein.readLine().split(";");
+	      			String[] zeile =reader.leseAusDatei();
 	      			this.getraenk = new Getraenk(zeile[0], 
 	      				Float.parseFloat(zeile[1]), 
 	      				Float.parseFloat(zeile[2]), 
 	      				zeile[3], 
 	      				zeile[4].split("_"));
-	      				ein.close();
+	      				reader.schliesseDatei();
+		 }
+		 else {
+			 ReaderCreatorErfani creator = new ConcereteTextReaderCreatorErfani();
+			 ReaderProductErfani reader = creator.factoryMethod();
+			 String []zeile = reader.leseAusDatei();
+			 this.getraenk = new Getraenk(zeile[0], 
+	      				Float.parseFloat(zeile[1]), 
+	      				Float.parseFloat(zeile[2]), 
+	      				zeile[3], 
+	      				zeile[4].split("_"));
+	      				reader.schliesseDatei();
+			 
+		 }
 	      	  			
 	      		}
 	     

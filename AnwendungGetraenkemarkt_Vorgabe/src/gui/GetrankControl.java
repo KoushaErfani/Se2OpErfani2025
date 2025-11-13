@@ -57,17 +57,19 @@ public class GetrankControl {
 	      	  	   			"Der Getraenk wurde gelesen!");
 	      		}
 	       		else{
-		   			view.zeigeInformationsfensterAn(
-		   				"Noch nicht implementiert!");
+	       			model.leseAusDatei(typ);
+		   			view.zeigeInformationsfensterAn("wurede gelesen!");
 		   		}
 			}
 			catch(IOException exc){
 				view.zeigeFehlermeldungsfensterAn(
 					"IOException beim Lesen!");
+				exc.printStackTrace();
 			}
 			catch(Exception exc){
 				view.zeigeFehlermeldungsfensterAn(
 					"Unbekannter Fehler beim Lesen!");
+				exc.printStackTrace();
 			}
 		}
 		
