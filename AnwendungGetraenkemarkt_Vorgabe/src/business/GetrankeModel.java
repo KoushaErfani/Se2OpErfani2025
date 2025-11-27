@@ -4,16 +4,39 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.Vector;
 
 import fileCreatorsErfani.ConcereteCsvReaderCreatorErfani;
 import fileCreatorsErfani.ConcereteTextReaderCreatorErfani;
 import fileCreatorsErfani.ConcreteCsvReaderProductErfani;
 import fileCreatorsErfani.ReaderCreatorErfani;
 import fileCreatorsErfani.ReaderProductErfani;
+import ownUtil.Observable;
+import ownUtil.Observer;
 
 
-public class GetrankeModel {
-	 private Getraenk getraenk;
+public class GetrankeModel implements Observable{
+	
+     private Getraenk getraenk;
+	 private static GetrankeModel instance ;
+	 
+	 private Vector<Observer> observers = new Vector<Observer>();
+	 
+	 
+	 private GetrankeModel() {
+		
+		}
+	 
+	 
+	 public static GetrankeModel getInstacne() {
+		 if(instance==null) {
+			 instance = new GetrankeModel();
+			 
+		 }
+		 
+		 return instance;
+	 }
+
 
 	public Getraenk getGetraenk() {
 		return getraenk;
@@ -21,6 +44,7 @@ public class GetrankeModel {
 
 	public void setGetraenk(Getraenk getraenk) {
 		this.getraenk = getraenk;
+		notifyObservers();
 	}
 	
 	 public void leseAusDatei(String typ)throws Exception{
@@ -35,6 +59,7 @@ public class GetrankeModel {
 	      				zeile[3], 
 	      				zeile[4].split("_"));
 	      				reader.schliesseDatei();
+	      				notifyObservers();
 		 }
 		 else {
 			 ReaderCreatorErfani creator = new ConcereteTextReaderCreatorErfani();
@@ -46,6 +71,7 @@ public class GetrankeModel {
 	      				zeile[3], 
 	      				zeile[4].split("_"));
 	      				reader.schliesseDatei();
+	      				notifyObservers();
 			 
 		 }
 	      	  			
@@ -58,6 +84,29 @@ public class GetrankeModel {
 				aus.write(this.getraenk.gibGetraenkZurueck(';'));
 				aus.close();
 	   			
+		}
+
+
+		@Override
+		public void addObserver(Observer obs) {
+			observers.addElement(obs);
+			
+		}
+
+
+		@Override
+		public void removeObserver(Observer obs) {
+			observers.removeElement(obs);
+			
+		}
+
+
+		@Override
+		public void notifyObservers() {
+			for(Observer obs : observers) {
+				obs.update();
+			}
+			
 		}
 
 }

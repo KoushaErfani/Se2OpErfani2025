@@ -1,8 +1,8 @@
-package gui;
+package guiGetraenkemarkt;
 
 
 import java.io.IOException;
-import gui.GetraenkeView;
+
 import business.Getraenk;
 import business.GetrankeModel;
 import javafx.stage.Stage;
@@ -13,7 +13,7 @@ public class GetrankControl {
 	private GetrankeModel model;
 	
 	public GetrankControl(Stage primaryStage) {
-		this.model = new GetrankeModel();
+		this.model = GetrankeModel.getInstacne();
 		this.view = new GetraenkeView(this, model, primaryStage);
 	}
 	
@@ -25,7 +25,7 @@ public class GetrankControl {
    	            Float.parseFloat(view.getTxtVerkaufspreis().getText()),
    	        	view.getTxtMitAlkohol().getText(),
     		    view.getTxtBehaeltnisse().getText().split(";")));
-    		view.zeigeInformationsfensterAn("Das Getraenk wurde aufgenommen!");
+    		//view.zeigeInformationsfensterAn("Das Getraenk wurde aufgenommen!");
        	}
        	catch(Exception exc){
        		view.zeigeFehlermeldungsfensterAn(exc.getMessage());
@@ -37,7 +37,7 @@ public class GetrankControl {
 		
 		try {
 			model.schreibeBahnhoefeInCsvDatei();
-   			view.zeigeInformationsfensterAn("Die Getraenke wurden gespeichert!");
+   			//view.zeigeInformationsfensterAn("Die Getraenke wurden gespeichert!");
 		}	
 		catch(IOException exc){
 			view.zeigeFehlermeldungsfensterAn(
@@ -53,12 +53,12 @@ public class GetrankControl {
 	    	try {
 	      		if("csv".equals(typ)){
 	      			model.leseAusDatei(typ);
-	      	  			view.zeigeInformationsfensterAn(
-	      	  	   			"Der Getraenk wurde gelesen!");
+	      	  			//view.zeigeInformationsfensterAn(
+	      	  	   			//"Der Getraenk wurde gelesen!");
 	      		}
 	       		else{
 	       			model.leseAusDatei(typ);
-		   			view.zeigeInformationsfensterAn("wurede gelesen!");
+		   			//view.zeigeInformationsfensterAn("wurede gelesen!");
 		   		}
 			}
 			catch(IOException exc){

@@ -1,4 +1,4 @@
-package gui;
+package guiGetraenkemarkt;
 
 import business.GetrankeModel;
 import javafx.event.ActionEvent;
@@ -17,8 +17,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import ownUtil.MeldungsfensterAnzeiger;
+import ownUtil.Observer;
 
-public class GetraenkeView {
+public class GetraenkeView implements Observer{
 
 	private GetrankControl control;
 	private GetrankeModel model;
@@ -55,6 +56,7 @@ public class GetraenkeView {
     	primaryStage.setScene(scene);
     	primaryStage.setTitle("Verwaltung eines Getraenkemarktes");
     	primaryStage.show();
+    	this.model.addObserver(this);
     	this.initKomponenten();
 		this.initListener();
 		
@@ -116,8 +118,8 @@ public class GetraenkeView {
         // Buttons
         btnEingabe.setLayoutX(20);
         btnEingabe.setLayoutY(290);
-        btnAnzeige.setLayoutX(400);
-        btnAnzeige.setLayoutY(290);
+       // btnAnzeige.setLayoutX(400);
+        //btnAnzeige.setLayoutY(290);
         pane.getChildren().addAll(btnEingabe, btnAnzeige); 
         
  		// Menue
@@ -136,12 +138,13 @@ public class GetraenkeView {
         	    control.nehmeGetraenkAuf();
             }
 	    });
-	    btnAnzeige.setOnAction(new EventHandler<ActionEvent>() {
+	    /*btnAnzeige.setOnAction(new EventHandler<ActionEvent>() {
 	    	@Override
 	        public void handle(ActionEvent e) {
-	            zeigeBahnhoefeAn();
+	            update();
 	        } 
    	    });
+   	    */
 	    mnItmCsvImport.setOnAction(new EventHandler<ActionEvent>() {
 	    	@Override
 	        public void handle(ActionEvent e) {
@@ -162,9 +165,10 @@ public class GetraenkeView {
 	    });
     }
    
-   public void zeigeInformationsfensterAn(String meldung){
+  /* public void zeigeInformationsfensterAn(String meldung){
    	new MeldungsfensterAnzeiger(AlertType.INFORMATION,"Information", meldung).zeigeMeldungsfensterAn();
-   }	
+   }
+   */	
    
    public void zeigeFehlermeldungsfensterAn(String meldung){
       	new MeldungsfensterAnzeiger(AlertType.ERROR,"Fehler", meldung).zeigeMeldungsfensterAn();
@@ -210,13 +214,25 @@ public void setTxtArtikelnummer(TextField txtArtikelnummer) {
 	this.txtArtikelnummer = txtArtikelnummer;
 }
 
-private void zeigeBahnhoefeAn(){
+/*private void zeigeBahnhoefeAn(){
 	if(model.getGetraenk() != null){
 		txtAnzeige.setText(
 			model.getGetraenk().gibGetraenkZurueck(' '));
 	}
 	else{
 		zeigeInformationsfensterAn("Bisher wurde keine Getraenk aufgenommen!");
+	}
+}
+*/
+@Override
+public void update() {
+	
+	if(model.getGetraenk() != null){
+		txtAnzeige.setText(
+			model.getGetraenk().gibGetraenkZurueck(' '));
+	}
+	else{
+		//zeigeInformationsfensterAn("Bisher wurde keine Getraenk aufgenommen!");
 	}
 }    
 
