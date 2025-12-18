@@ -11,7 +11,17 @@ public class WarenuebersichtControl {
 	
 	public WarenuebersichtControl(Stage primaryStage){
 		this.getraenkeModel = GetrankeModel.getInstacne(); 		
-		this.warenuebersichtView = new WarenuebersichtView(this, primaryStage,getraenkeModel);
+		this.setWarenuebersichtView(new WarenuebersichtView(this, primaryStage,getraenkeModel));
 }
+
+
+	public WarenuebersichtView getWarenuebersichtView() {
+		return warenuebersichtView;
+	}
+
+
+	public void setWarenuebersichtView(WarenuebersichtView warenuebersichtView) {
+		this.warenuebersichtView = warenuebersichtView;
+	}
 
 }

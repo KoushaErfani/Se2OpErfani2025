@@ -8,13 +8,17 @@ public class Getraenk {
     private String mitAlkohol;
     private String[] behaeltnisse;
     
-    public Getraenk(String artikelnummer, float einkaufspreis, float verkaufspreis,
-    		String mitAlkohol, String[] behaeltnisse){
+    public Getraenk(String artikelnummer, float einkaufspreis, float verkaufspreis,String mitAlkohol, String[] behaeltnisse){
+    	
     	this.artikelnummer = artikelnummer;
       	this.einkaufspreis = einkaufspreis;
        	this.verkaufspreis = verkaufspreis;
        	this.mitAlkohol = mitAlkohol;
        	this.behaeltnisse = behaeltnisse;
+       	
+       	if(this.artikelnummer==null) {
+		throw new IllegalArgumentException("Artikelnummer darf nicht null sein");
+	}
     }
 
 	public String getArtikelnummer() {

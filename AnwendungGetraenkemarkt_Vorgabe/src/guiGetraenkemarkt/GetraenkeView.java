@@ -1,5 +1,6 @@
 package guiGetraenkemarkt;
 
+import business.Getraenk;
 import business.GetrankeModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -145,30 +146,15 @@ public class GetraenkeView implements Observer{
 	        } 
    	    });
    	    */
-	    mnItmCsvImport.setOnAction(new EventHandler<ActionEvent>() {
-	    	@Override
-	        public void handle(ActionEvent e) {
-	       	 	control.leseAusDatei("csv");
-	    	}
-	    });
-	    mnItmTxtImport.setOnAction(new EventHandler<ActionEvent>() {
-		    @Override
-		    public void handle(ActionEvent e) {
-		     	control.leseAusDatei("txt");
-		    }
-    	});
-	    mnItmCsvExport.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				control.schreibeBahnhoefeInCsvDatei();
-			}	
-	    });
+	    mnItmCsvImport.setOnAction((e)->control.leseAusDatei("csv"));
+	    mnItmTxtImport.setOnAction((e)->control.leseAusDatei("txt"));
+	    mnItmCsvExport.setOnAction((e)->control.schreibeBahnhoefeInCsvDatei());
     }
    
-  /* public void zeigeInformationsfensterAn(String meldung){
+   public void zeigeInformationsfensterAn(String meldung){
    	new MeldungsfensterAnzeiger(AlertType.INFORMATION,"Information", meldung).zeigeMeldungsfensterAn();
    }
-   */	
+   	
    
    public void zeigeFehlermeldungsfensterAn(String meldung){
       	new MeldungsfensterAnzeiger(AlertType.ERROR,"Fehler", meldung).zeigeMeldungsfensterAn();
@@ -227,12 +213,17 @@ public void setTxtArtikelnummer(TextField txtArtikelnummer) {
 @Override
 public void update() {
 	
-	if(model.getGetraenk() != null){
-		txtAnzeige.setText(
-			model.getGetraenk().gibGetraenkZurueck(' '));
+	if(model.getGetraenk().size()>0){
+		StringBuffer text = new StringBuffer();
+		for(Getraenk getraenk : model.getGetraenk()) {
+			text.append(getraenk.gibGetraenkZurueck(' ')).append("\n");
+		}
+		
+		
+		txtAnzeige.setText(text.toString());
 	}
 	else{
-		//zeigeInformationsfensterAn("Bisher wurde keine Getraenk aufgenommen!");
+		zeigeInformationsfensterAn("Bisher wurde keine Getraenk aufgenommen!");
 	}
 }    
 

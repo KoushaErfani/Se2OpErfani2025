@@ -1,5 +1,6 @@
 package guiWarenuebersicht;
 
+import business.Getraenk;
 import business.GetrankeModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,14 +12,14 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
+//import javafx.stage.WindowEvent;
 import ownUtil.MeldungsfensterAnzeiger;
 import ownUtil.Observer;
 
 public class WarenuebersichtView implements Observer {
-			private WarenuebersichtControl warenuebersichtControl;
+			//private WarenuebersichtControl warenuebersichtControl;
 			private GetrankeModel getraenkeModel;
-			private Stage stage;
+			//private Stage stage;
 	    	//---Anfang Attribute der grafischen Oberflaeche---
 	    	private Pane pane = new  Pane();
 	    	private Label lblAnzeigeGetraenke     
@@ -36,10 +37,10 @@ public class WarenuebersichtView implements Observer {
 	    		primaryStage.setScene(scene);
 	    		primaryStage.setTitle("Anzeige der Warenuebersicht");
 	    		primaryStage.show();
-	    		this.warenuebersichtControl = warenuebersichtControl;
+	    		//this.warenuebersichtControl = warenuebersichtControl;
 	    		this.getraenkeModel = getraenkeModel;
 	    		this.getraenkeModel.addObserver(this);
-	    		this.stage = stage;
+	    		//this.stage = stage;
 	    		this.initKomponenten();
 	    		this.initListener();
 	    	}
@@ -96,11 +97,13 @@ public class WarenuebersichtView implements Observer {
 
 		@Override
 		public void update() {
-			if(getraenkeModel.getGetraenk() != null){
-    			txtAnzeigeGetraenke.setText(
-    				getraenkeModel.getGetraenk()
- 				.gibGetraenkZurueck(' '));
-    		}
+			if(getraenkeModel.getGetraenk().size()>0){
+				StringBuffer text = new StringBuffer();
+				for(Getraenk getraenk : getraenkeModel.getGetraenk()) {
+					text.append(getraenk.gibGetraenkZurueck(' ')).append("\n");
+				}
+				txtAnzeigeGetraenke.setText(text.toString());
+			}
     		else{
     			zeigeInformationsfensterAn(
  				"Bisher wurde kein Getraenk aufgenommen!");

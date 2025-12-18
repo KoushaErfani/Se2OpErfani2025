@@ -19,7 +19,7 @@ public class GetrankControl {
 	
 	public void nehmeGetraenkAuf(){
     	try{ 
-    		model.setGetraenk(new Getraenk(
+    		model.addGetraenk(new Getraenk(
     			view.getTxtArtikelnummer().getText(), 
    	            Float.parseFloat(view.getTxtEinkaufspreis().getText()),
    	            Float.parseFloat(view.getTxtVerkaufspreis().getText()),
