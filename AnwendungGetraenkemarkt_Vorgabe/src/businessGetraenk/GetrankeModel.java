@@ -1,4 +1,4 @@
-package business;
+package businessGetraenk;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -98,7 +98,7 @@ public class GetrankeModel implements Observable{
 		@Override
 		public void notifyObservers() {
 			for(Observer obs : observers) {
-				obs.update();
+				obs.update(this);
 			}
 			
 		}

@@ -1,7 +1,7 @@
 package guiGetraenkemarkt;
 
-import business.Getraenk;
-import business.GetrankeModel;
+import businessGetraenk.Getraenk;
+import businessGetraenk.GetrankeModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -18,6 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import ownUtil.MeldungsfensterAnzeiger;
+import ownUtil.Observable;
 import ownUtil.Observer;
 
 public class GetraenkeView implements Observer{
@@ -211,7 +212,7 @@ public void setTxtArtikelnummer(TextField txtArtikelnummer) {
 }
 */
 @Override
-public void update() {
+public void update(Observable o) {
 	
 	if(model.getGetraenk().size()>0){
 		StringBuffer text = new StringBuffer();

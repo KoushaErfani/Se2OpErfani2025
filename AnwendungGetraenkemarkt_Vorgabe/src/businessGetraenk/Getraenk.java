@@ -1,4 +1,4 @@
-package business;
+package businessGetraenk;
 
 public class Getraenk {
 	

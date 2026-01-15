@@ -3,8 +3,8 @@ package guiGetraenkemarkt;
 
 import java.io.IOException;
 
-import business.Getraenk;
-import business.GetrankeModel;
+import businessGetraenk.Getraenk;
+import businessGetraenk.GetrankeModel;
 import javafx.stage.Stage;
 
 public class GetrankControl {

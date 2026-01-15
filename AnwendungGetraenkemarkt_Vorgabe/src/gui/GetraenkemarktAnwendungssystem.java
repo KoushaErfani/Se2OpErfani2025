@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import business.Getraenk;
+import businessGetraenk.Getraenk;
 import javafx.event.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
